@@ -71,7 +71,7 @@ BEGIN
               WHERE s.sale_date = COALESCE(_sale_date, CURRENT_DATE)) _js;
 END;
 $$;
-``
+```
 
 ### Вызываем функцию
 
