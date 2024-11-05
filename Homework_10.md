@@ -8,7 +8,7 @@ FROM annastavi.salary s
 GROUP BY g.value, s.amount;
 ```
 
-# Ответ
+### Ответ
 
 | grade  | average\_salary |
 |:-------|:----------------|
@@ -27,6 +27,15 @@ FROM annastavi.employee e
          INNER JOIN annastavi.salary s
                     ON e.id = s.fk_employee;
 ```
+
+### Ответ
+
+| first\_name | last\_name | max\_salary | min\_salary |
+|:------------|:-----------|:------------|:------------|
+| Eugene      | Aristov    | 300000      | 100000      |
+| Ivan        | Ivanov     | 200000      | 200000      |
+| Petr        | Petrov     | 200000      | 200000      |
+
 
 ### Текущая зарплата сотрудников вместе с грейдом
 
@@ -49,3 +58,11 @@ SELECT *
 FROM cte c
 WHERE c.rn = 1;
 ```
+
+### Ответ
+
+| first\_name | last\_name | amount | grade  | rn  |
+|:------------|:-----------|:-------|:-------|:----|
+| Eugene      | Aristov    | 300000 | senoir | 1   |
+| Ivan        | Ivanov     | 200000 | middle | 1   |
+| Petr        | Petrov     | 200000 | middle | 1   |
