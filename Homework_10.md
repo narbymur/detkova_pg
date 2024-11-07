@@ -66,3 +66,32 @@ WHERE c.rn = 1;
 | Eugene      | Aristov    | 300000 | senoir | 1   |
 | Ivan        | Ivanov     | 200000 | middle | 1   |
 | Petr        | Petrov     | 200000 | middle | 1   |
+
+### Разница зарплат сотрудников
+
+```sql
+SELECT e.first_name,
+       e.last_name,
+       s.amount,
+       g.value    AS grade,
+       COALESCE(s.amount - LAG(s.amount) OVER (ORDER BY s.amount ASC), 0) delta_salary
+FROM annastavi.employee e
+         INNER JOIN annastavi.salary s
+                    ON e.id = s.fk_employee
+         INNER JOIN annastavi.grade g
+                    ON s.fk_grade = g.id
+         INNER JOIN annastavi.title tl
+                    ON tl.id = s.fk_employee
+         INNER JOIN annastavi.title_name tln
+                    ON tln.id = tl.fk_titlename;
+```
+
+### Ответ 
+
+| first\_name | last\_name | amount | grade  | delta\_salary |
+|:------------|:-----------|:-------|:-------|:--------------|
+| Eugene      | Aristov    | 100000 | junior | 0             |
+| Eugene      | Aristov    | 200000 | middle | 100000        |
+| Ivan        | Ivanov     | 200000 | middle | 0             |
+| Petr        | Petrov     | 200000 | middle | 0             |
+| Eugene      | Aristov    | 300000 | senoir | 100000        |
